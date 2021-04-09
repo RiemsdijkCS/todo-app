@@ -1,0 +1,57 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Nunito", sans-serif;
+}
+
+.container {
+    max-width: 90%;
+    margin: 30px auto;
+    overflow: auto;
+    padding: 30px;
+}
+.header {
+    display: flex;
+}
+.deletebutton {
+    color: red;
+    cursor: pointer;
+    justify-content: flex-end;
+}
+
+.checkbox {
+    cursor: pointer;
+}
+
+.completed {
+    text-decoration-line: line-through;
+}
+
+.todo {
+    background: #f4f4f4;
+    margin: 0.5rem;
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+}
+
+.todo h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.todo p {
+    font-size: 1.1rem;
+}
