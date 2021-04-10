@@ -12,6 +12,8 @@ class TodoController extends Controller
     public function show()
     {
         return Todo::all();
+
+        return Response(200);
     }
 
     public function remove(Request $request, $id)
@@ -43,14 +45,40 @@ class TodoController extends Controller
             'description' => $request['description'],
             'completed' => $request['completed']
         ]);
-        return response()->json($todo, 201);
+        return Response()->json($todo, 201);
     }
 
-    public function update(Request $request, $id)
+    public function toggle(Request $request, $id)
     {
         $todo = Todo::find($id);
         $todo->update([
             'completed' => !$todo->completed
         ]);
+
+        return Response(200);
+    }
+
+    public function update(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'id' => 'Required|Integer',
+                'title' => 'Required|String|Min:2|Max:255',
+                'description' => 'Required|String|Min:2|Max:255',
+
+            ]
+        );
+        if ($validator->fails()) {
+            return Response($validator->getMessageBag(), 400);
+        }
+
+        $todo = Todo::find($request['id']);
+        $todo->update([
+            'title' => $request['title'],
+            'description' => $request['description']
+        ]);
+
+        return Response()->json($todo, 200);
     }
 }

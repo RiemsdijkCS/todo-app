@@ -25,8 +25,9 @@ Route::delete('/todos/{id}', [TodoController::class, 'remove']);
 
 Route::post('/todos', [TodoController::class, 'add']);
 
-Route::put('/todos/{id}', [TodoController::class, 'update']);
+Route::put('/todos/{id}', [TodoController::class, 'toggle']);
 
+Route::put('/todos/', [TodoController::class, 'update']);
 
 Route::fallback(function () {
     return view('404');

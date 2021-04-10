@@ -1870,7 +1870,7 @@ __webpack_require__(/*! ./components/Todo */ "./resources/js/components/Todo.js"
 
 __webpack_require__(/*! ./components/Header */ "./resources/js/components/Header.js");
 
-__webpack_require__(/*! ./components/FormModal */ "./resources/js/components/FormModal.js");
+__webpack_require__(/*! ./components/EditButton */ "./resources/js/components/EditButton.js");
 
 /***/ }),
 
@@ -1918,10 +1918,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/components/FormModal.js":
-/*!**********************************************!*\
-  !*** ./resources/js/components/FormModal.js ***!
-  \**********************************************/
+/***/ "./resources/js/components/EditButton.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/EditButton.js ***!
+  \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -1930,100 +1930,98 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_icons_fa__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-icons/fa */ "./node_modules/react-icons/fa/index.esm.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
 
-function FormModal() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "modal fade",
-    id: "addModal",
-    tabIndex: "-1",
-    role: "dialog",
-    "aria-labelledby": "addModalLabel",
-    "aria-hidden": "true",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "modal-dialog",
-      role: "document",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "modal-content",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "modal-header",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
-            className: "modal-title",
-            id: "addModalLabel",
-            children: "Add Todo"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-            type: "button",
-            className: "close",
-            "data-dismiss": "modal",
-            "aria-label": "Close",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-              "aria-hidden": "true",
-              children: "\xD7"
-            })
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "modal-body",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-              className: "form-group",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
-                htmlFor: "inputTitle",
-                children: "Title"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                type: "input",
-                className: "form-control",
-                id: "inputTitle",
-                "aria-describedby": "emailHelp",
-                placeholder: "e.g. do the laundry"
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-              className: "form-group",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
-                htmlFor: "inputDesciption",
-                children: "Description"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                type: "textarea",
-                className: "form-control",
-                id: "inputDescription",
-                placeholder: "e.g. this monday"
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-              className: "form-check",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-                type: "checkbox",
-                className: "form-check-input",
-                id: "check",
-                onChange: function onChange() {
-                  setChecked(!checked);
-                }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
-                className: "form-check-label",
-                htmlFor: "checkboxLabel",
-                children: "Completed?"
-              })]
+
+function EditButton(_ref) {
+  var todo = _ref.todo,
+      editTodo = _ref.editTodo;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
+      type: "button",
+      className: "btn btn-primary",
+      "data-toggle": "modal",
+      "data-target": "#editModal",
+      children: ["Edit ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_2__.FaPencilAlt, {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "modal fade",
+      id: "editModal",
+      tabIndex: "-1",
+      role: "dialog",
+      "aria-labelledby": "editModalLable",
+      "aria-hidden": "true",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "modal-dialog",
+        role: "document",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "modal-content",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "modal-header",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
+              className: "modal-title",
+              id: "editModalLable",
+              children: "Edit Todo"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
               type: "button",
-              className: "btn btn-primary mt-3",
-              "data-toggle": "modal",
-              "data-target": "#addModal",
-              onClick: function onClick() {
-                var title = document.getElementById("inputTitle").value;
-                var desc = document.getElementById("inputDescription").value;
-                addTodo(title, desc, checked);
-              },
-              children: "Add Todo"
+              className: "close",
+              "data-dismiss": "modal",
+              "aria-label": "Close",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                "aria-hidden": "true",
+                children: "\xD7"
+              })
             })]
-          })
-        })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "modal-body",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                className: "form-group",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+                  htmlFor: "editTitle",
+                  children: "Title"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                  type: "input",
+                  className: "form-control",
+                  id: "editTitle",
+                  "aria-describedby": "emailHelp",
+                  placeholder: "e.g. do the laundry"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                className: "form-group",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+                  htmlFor: "editDescription",
+                  children: "Description"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+                  type: "textarea",
+                  className: "form-control",
+                  id: "editDescription",
+                  placeholder: "e.g. this monday"
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                type: "button",
+                className: "btn btn-primary mt-3",
+                "data-toggle": "modal",
+                "data-target": "#editModal",
+                onClick: function onClick() {
+                  var title = document.getElementById("editTitle").value;
+                  var desc = document.getElementById("editDescription").value;
+                  editTodo(todo.id, title, desc);
+                },
+                children: "Edit Todo"
+              })]
+            })
+          })]
+        })
       })
-    })
+    })]
   });
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormModal);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditButton);
 
 /***/ }),
 
@@ -2193,7 +2191,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_icons_fa__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-icons/fa */ "./node_modules/react-icons/fa/index.esm.js");
-/* harmony import */ var _FormModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormModal */ "./resources/js/components/FormModal.js");
+/* harmony import */ var _EditButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditButton */ "./resources/js/components/EditButton.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -2221,13 +2219,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function Todo(_ref) {
   var todo = _ref.todo,
       deleteTodo = _ref.deleteTodo,
-      toggleCompletedDB = _ref.toggleCompletedDB;
+      toggleCompletedDB = _ref.toggleCompletedDB,
+      editTodo = _ref.editTodo;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(todo.completed),
       _useState2 = _slicedToArray(_useState, 2),
       completed = _useState2[0],
-      toggleCompleted = _useState2[1]; // const [showModal, setShowModal] = useState(false);
-
+      toggleCompleted = _useState2[1];
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "todo",
@@ -2237,7 +2235,10 @@ function Todo(_ref) {
     },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h3", {
       className: completed ? "completed" : " ",
-      children: [todo.title, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_3__.FaTimes, {
+      children: [todo.title, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_EditButton__WEBPACK_IMPORTED_MODULE_1__.default, {
+        todo: todo,
+        editTodo: editTodo
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_3__.FaTimes, {
         className: "deletebutton",
         onClick: function onClick() {
           return deleteTodo(todo.id);
@@ -2410,19 +2411,31 @@ function Todos() {
     return function addTodo(_x2, _x3, _x4) {
       return _ref3.apply(this, arguments);
     };
-  }(); // Toggles the boolean 'completed' in the database.
+  }(); //FIXME: Filter not working?
 
 
-  var toggleCompletedDB = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(id) {
+  var editTodo = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(id, title, description) {
+      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default().put("http://localhost:8000/api/todos/" + id);
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().put("http://localhost:8000/api/todos", {
+                id: id,
+                title: title,
+                description: description
+              });
 
             case 2:
+              response = _context4.sent;
+              setTodos(todos.filter(function (todo) {
+                return todo.id !== id;
+              }));
+              setTodos([response.data].concat(_toConsumableArray(todos)));
+
+            case 5:
             case "end":
               return _context4.stop();
           }
@@ -2430,8 +2443,31 @@ function Todos() {
       }, _callee4);
     }));
 
-    return function toggleCompletedDB(_x5) {
+    return function editTodo(_x5, _x6, _x7) {
       return _ref4.apply(this, arguments);
+    };
+  }(); // Toggles the boolean 'completed' in the database.
+
+
+  var toggleCompletedDB = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(id) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().put("http://localhost:8000/api/todos/" + id);
+
+            case 2:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    return function toggleCompletedDB(_x8) {
+      return _ref5.apply(this, arguments);
     };
   }(); // Renders the header and every Todo in the current state/database, if there are no todos
   // we give a visual representation to the user that indicates that there are no todos.
@@ -2445,7 +2481,8 @@ function Todos() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Todo__WEBPACK_IMPORTED_MODULE_4__.default, {
         todo: todo,
         deleteTodo: deleteTodo,
-        toggleCompletedDB: toggleCompletedDB
+        toggleCompletedDB: toggleCompletedDB,
+        editTodo: editTodo
       }, todo.id);
     }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
       children: "No tasks to show"

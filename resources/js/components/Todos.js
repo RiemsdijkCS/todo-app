@@ -40,6 +40,17 @@ function Todos() {
     setTodos([...todos, response.data]);
   };
 
+  //FIXME: Filter not working?
+  const editTodo = async (id, title, description) => {
+    const response = await axios.put("http://localhost:8000/api/todos", {
+      id: id,
+      title: title,
+      description: description,
+    });
+    setTodos(todos.filter((todo) => todo.id !== id));
+    setTodos([response.data, ...todos]);
+  };
+
   // Toggles the boolean 'completed' in the database.
   const toggleCompletedDB = async (id) => {
     await axios.put("http://localhost:8000/api/todos/" + id);
@@ -57,6 +68,7 @@ function Todos() {
             todo={todo}
             deleteTodo={deleteTodo}
             toggleCompletedDB={toggleCompletedDB}
+            editTodo={editTodo}
           />
         ))
       ) : (
