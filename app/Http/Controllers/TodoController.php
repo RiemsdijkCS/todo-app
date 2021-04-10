@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Todo;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+
 
 class TodoController extends Controller
 {
@@ -13,7 +15,7 @@ class TodoController extends Controller
     {
         return Todo::all();
 
-        return Response(200);
+        return response(200);
     }
 
     public function remove(Request $request, $id)
@@ -21,7 +23,7 @@ class TodoController extends Controller
         $todo = Todo::find($id);
         $todo->delete();
 
-        return Response()->json(204);
+        return response()->json(204);
     }
 
     public function add(Request $request)
@@ -36,7 +38,7 @@ class TodoController extends Controller
         );
 
         if ($validator->fails()) {
-            return Response($validator->getMessageBag(), 400);
+            return response($validator->getMessageBag(), 400);
         }
 
 
@@ -45,7 +47,7 @@ class TodoController extends Controller
             'description' => $request['description'],
             'completed' => $request['completed']
         ]);
-        return Response()->json($todo, 201);
+        return response()->json($todo, 201);
     }
 
     public function toggle(Request $request, $id)
@@ -55,7 +57,7 @@ class TodoController extends Controller
             'completed' => !$todo->completed
         ]);
 
-        return Response(200);
+        return response(200);
     }
 
     public function update(Request $request)
@@ -70,7 +72,7 @@ class TodoController extends Controller
             ]
         );
         if ($validator->fails()) {
-            return Response($validator->getMessageBag(), 400);
+            return response($validator->getMessageBag(), 400);
         }
 
         $todo = Todo::find($request['id']);
@@ -79,6 +81,28 @@ class TodoController extends Controller
             'description' => $request['description']
         ]);
 
-        return Response()->json($todo, 200);
+        return response()->json($todo, 200);
+    }
+
+    public function saveImage(Request $request, $id)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'image' => 'Required|mimes:jpeg,jpg,png,gif'
+            ]
+        );
+        if ($validator->fails()) {
+            return response($validator->getMessageBag(), 400);
+        }
+
+        if ($request->hasFile('image')) {
+            $extension = $request->file('image')->getClientOriginalExtension();
+
+            $name = $id . '.' . $extension;
+            error_log($name);
+            Storage::disk('public')->put($name, $request->file('image'));
+            return response(201);
+        }
     }
 }

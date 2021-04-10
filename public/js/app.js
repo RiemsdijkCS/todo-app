@@ -2220,12 +2220,23 @@ function Todo(_ref) {
   var todo = _ref.todo,
       deleteTodo = _ref.deleteTodo,
       toggleCompletedDB = _ref.toggleCompletedDB,
-      editTodo = _ref.editTodo;
+      editTodo = _ref.editTodo,
+      uploadPhoto = _ref.uploadPhoto;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(todo.completed),
       _useState2 = _slicedToArray(_useState, 2),
       completed = _useState2[0],
-      toggleCompleted = _useState2[1];
+      toggleCompleted = _useState2[1]; //TODO: This event is not called??? Fix form.
+
+
+  var handleSubmit = function handleSubmit(event) {
+    // event.preventDefault();
+    console.log("Handling submit");
+    var fileInput = document.querySelector("#fileupload");
+    var formData = new FormData();
+    formData.append("image", fileInput.files[0]);
+    uploadPhoto(todo.id, formData);
+  };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "todo",
@@ -2238,6 +2249,21 @@ function Todo(_ref) {
       children: [todo.title, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_EditButton__WEBPACK_IMPORTED_MODULE_1__.default, {
         todo: todo,
         editTodo: editTodo
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
+        id: "upload-image",
+        onSubmit: function onSubmit() {
+          return handleSubmit;
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          id: "fileupload",
+          type: "file",
+          name: "image",
+          required: true
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+          type: "submit",
+          id: "btnUploadFile",
+          children: "Upload File"
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_3__.FaTimes, {
         className: "deletebutton",
         onClick: function onClick() {
@@ -2318,7 +2344,12 @@ function Todos() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       todos = _useState2[0],
-      setTodos = _useState2[1]; // When the component is used, immediately get all todos.
+      setTodos = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      loaded = _useState4[0],
+      setLoaded = _useState4[1]; // When the component is used, immediately get all todos.
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
@@ -2332,14 +2363,16 @@ function Todos() {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              setLoaded(false);
+              _context.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_3___default().get("http://localhost:8000/api/todos");
 
-            case 2:
+            case 3:
               response = _context.sent;
               setTodos(response.data);
+              setLoaded(true);
 
-            case 4:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -2469,6 +2502,40 @@ function Todos() {
     return function toggleCompletedDB(_x8) {
       return _ref5.apply(this, arguments);
     };
+  }();
+
+  var uploadPhoto = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(id, formData) {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              console.log(formData);
+              console.log("UPLOADING PHOTO");
+              _context6.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().post("http://localhost:8000/api/todos/" + id, {
+                formData: formData
+              }, {
+                headers: {
+                  "Content-Type": "multipart/form-data"
+                }
+              });
+
+            case 4:
+              response = _context6.sent;
+
+            case 5:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+
+    return function uploadPhoto(_x9, _x10) {
+      return _ref6.apply(this, arguments);
+    };
   }(); // Renders the header and every Todo in the current state/database, if there are no todos
   // we give a visual representation to the user that indicates that there are no todos.
 
@@ -2482,9 +2549,10 @@ function Todos() {
         todo: todo,
         deleteTodo: deleteTodo,
         toggleCompletedDB: toggleCompletedDB,
-        editTodo: editTodo
+        editTodo: editTodo,
+        uploadPhoto: uploadPhoto
       }, todo.id);
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+    }) : loaded && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
       children: "No tasks to show"
     })]
   });

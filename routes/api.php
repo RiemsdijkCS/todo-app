@@ -27,7 +27,9 @@ Route::post('/todos', [TodoController::class, 'add']);
 
 Route::put('/todos/{id}', [TodoController::class, 'toggle']);
 
-Route::put('/todos/', [TodoController::class, 'update']);
+Route::put('/todos', [TodoController::class, 'update']);
+
+Route::post('/todos/{id}', [TodoController::class, 'saveImage']);
 
 Route::fallback(function () {
     return view('404');

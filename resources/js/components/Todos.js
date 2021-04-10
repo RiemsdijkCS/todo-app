@@ -11,6 +11,7 @@ and makes calles to the database. One change that could be done is to just make 
 }
 function Todos() {
   const [todos, setTodos] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   // When the component is used, immediately get all todos.
   useEffect(() => {
@@ -19,8 +20,10 @@ function Todos() {
 
   // Gets all todos from database
   const loadTodos = async () => {
+    setLoaded(false);
     const response = await axios.get("http://localhost:8000/api/todos");
     setTodos(response.data);
+    setLoaded(true);
   };
 
   // Delete Todo from database, and update state accordingly
@@ -56,24 +59,37 @@ function Todos() {
     await axios.put("http://localhost:8000/api/todos/" + id);
   };
 
+  const uploadPhoto = async (id, formData) => {
+    console.log(formData);
+    console.log("UPLOADING PHOTO");
+    const response = await axios.post(
+      "http://localhost:8000/api/todos/" + id,
+      {
+        formData,
+      },
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+  };
+
   // Renders the header and every Todo in the current state/database, if there are no todos
   // we give a visual representation to the user that indicates that there are no todos.
   return (
     <div className="container">
       <Header addTodo={addTodo} />
-      {todos.length > 0 ? (
-        todos.map((todo) => (
-          <Todo
-            key={todo.id}
-            todo={todo}
-            deleteTodo={deleteTodo}
-            toggleCompletedDB={toggleCompletedDB}
-            editTodo={editTodo}
-          />
-        ))
-      ) : (
-        <p>No tasks to show</p>
-      )}
+      {todos.length > 0
+        ? todos.map((todo) => (
+            <Todo
+              key={todo.id}
+              todo={todo}
+              deleteTodo={deleteTodo}
+              toggleCompletedDB={toggleCompletedDB}
+              editTodo={editTodo}
+              uploadPhoto={uploadPhoto}
+            />
+          ))
+        : loaded && <p>No tasks to show</p>}
     </div>
   );
 }
