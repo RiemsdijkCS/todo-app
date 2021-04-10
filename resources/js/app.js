@@ -15,3 +15,4 @@ require("./bootstrap");
 require("./components/Todos");
 require("./components/Todo");
 require("./components/Header");
+require("./components/FormModal");

@@ -10029,6 +10029,10 @@ body {
   justify-content: flex-end;
 }
 
+.pencilbutton {
+  justify-content: flex-end;
+}
+
 .checkbox {
   cursor: pointer;
 }
@@ -10043,6 +10047,14 @@ body {
   margin: 0.5rem;
   padding: 0.8rem 1.2rem;
   cursor: pointer;
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+/Edge */
+  user-select: none;
+  /* Standard */
 }
 
 .todo h3 {

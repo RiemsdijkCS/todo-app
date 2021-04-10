@@ -31,6 +31,7 @@ function Todos() {
 
   // Adds Todo to database, then add the Todo to the current state.
   const addTodo = async (title, desc, completed) => {
+    console.log(completed);
     const response = await axios.post("http://localhost:8000/api/todos", {
       title: title,
       description: desc,
