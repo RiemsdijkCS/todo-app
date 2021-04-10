@@ -2159,8 +2159,8 @@ function Header(_ref) {
                   "data-toggle": "modal",
                   "data-target": "#addModal",
                   onClick: function onClick() {
-                    var title = document.getElementById("inputTitle").value;
-                    var desc = document.getElementById("inputDescription").value;
+                    var title = document.getElementById('inputTitle').value;
+                    var desc = document.getElementById('inputDescription').value;
                     addTodo(title, desc, checked);
                   },
                   children: "Add Todo"
@@ -2226,15 +2226,17 @@ function Todo(_ref) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(todo.completed),
       _useState2 = _slicedToArray(_useState, 2),
       completed = _useState2[0],
-      toggleCompleted = _useState2[1]; //TODO: This event is not called??? Fix form.
+      toggleCompleted = _useState2[1];
 
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      hasUploaded = _useState4[0],
+      setHasUploaded = _useState4[1];
 
-  var handleSubmit = function handleSubmit(event) {
-    // event.preventDefault();
-    console.log("Handling submit");
-    var fileInput = document.querySelector("#fileupload");
+  var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
     var formData = new FormData();
-    formData.append("image", fileInput.files[0]);
+    formData.append('image', e.target.image.files[0]);
     uploadPhoto(todo.id, formData);
   };
 
@@ -2245,14 +2247,14 @@ function Todo(_ref) {
       toggleCompletedDB(todo.id);
     },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h3", {
-      className: completed ? "completed" : " ",
+      className: completed ? 'completed' : ' ',
       children: [todo.title, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_EditButton__WEBPACK_IMPORTED_MODULE_1__.default, {
         todo: todo,
         editTodo: editTodo
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
         id: "upload-image",
-        onSubmit: function onSubmit() {
-          return handleSubmit;
+        onSubmit: function onSubmit(e) {
+          handleSubmit(e);
         },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
           id: "fileupload",
@@ -2264,6 +2266,9 @@ function Todo(_ref) {
           id: "btnUploadFile",
           children: "Upload File"
         })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+        className: "image",
+        src: '/images/' + todo.id + '.jpg'
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_icons_fa__WEBPACK_IMPORTED_MODULE_3__.FaTimes, {
         className: "deletebutton",
         onClick: function onClick() {
@@ -2271,7 +2276,7 @@ function Todo(_ref) {
         }
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-      className: completed ? "completed" : " ",
+      className: completed ? 'completed' : ' ',
       children: todo.description
     })]
   });
@@ -2365,7 +2370,7 @@ function Todos() {
             case 0:
               setLoaded(false);
               _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default().get("http://localhost:8000/api/todos");
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().get('http://localhost:8000/api/todos');
 
             case 3:
               response = _context.sent;
@@ -2393,7 +2398,7 @@ function Todos() {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default().delete("http://localhost:8000/api/todos/" + id);
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().delete('http://localhost:8000/api/todos/' + id);
 
             case 2:
               setTodos(todos.filter(function (todo) {
@@ -2423,7 +2428,7 @@ function Todos() {
             case 0:
               console.log(completed);
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default().post("http://localhost:8000/api/todos", {
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().post('http://localhost:8000/api/todos', {
                 title: title,
                 description: desc,
                 completed: completed
@@ -2455,7 +2460,7 @@ function Todos() {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default().put("http://localhost:8000/api/todos", {
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().put('http://localhost:8000/api/todos', {
                 id: id,
                 title: title,
                 description: description
@@ -2463,12 +2468,11 @@ function Todos() {
 
             case 2:
               response = _context4.sent;
-              setTodos(todos.filter(function (todo) {
+              setTodos([response.data].concat(_toConsumableArray(todos.filter(function (todo) {
                 return todo.id !== id;
-              }));
-              setTodos([response.data].concat(_toConsumableArray(todos)));
+              }))));
 
-            case 5:
+            case 4:
             case "end":
               return _context4.stop();
           }
@@ -2489,7 +2493,7 @@ function Todos() {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default().put("http://localhost:8000/api/todos/" + id);
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().put('http://localhost:8000/api/todos/' + id);
 
             case 2:
             case "end":
@@ -2512,15 +2516,9 @@ function Todos() {
           switch (_context6.prev = _context6.next) {
             case 0:
               console.log(formData);
-              console.log("UPLOADING PHOTO");
+              console.log('UPLOADING PHOTO');
               _context6.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default().post("http://localhost:8000/api/todos/" + id, {
-                formData: formData
-              }, {
-                headers: {
-                  "Content-Type": "multipart/form-data"
-                }
-              });
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().post('http://localhost:8000/api/todos/' + id, formData);
 
             case 4:
               response = _context6.sent;
@@ -2560,8 +2558,8 @@ function Todos() {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Todos);
 
-if (document.getElementById("todos")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_2__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Todos, {}), document.getElementById("todos"));
+if (document.getElementById('todos')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_2__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Todos, {}), document.getElementById('todos'));
 }
 
 /***/ }),

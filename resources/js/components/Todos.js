@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
-import axios from "axios";
-import Todo from "./Todo";
-import Header from "./Header";
+import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
+import Todo from './Todo';
+import Header from './Header';
 
 {
   /* This is the "main" component of the application that keeps track of all todos,
@@ -21,21 +21,21 @@ function Todos() {
   // Gets all todos from database
   const loadTodos = async () => {
     setLoaded(false);
-    const response = await axios.get("http://localhost:8000/api/todos");
+    const response = await axios.get('http://localhost:8000/api/todos');
     setTodos(response.data);
     setLoaded(true);
   };
 
   // Delete Todo from database, and update state accordingly
   const deleteTodo = async (id) => {
-    await axios.delete("http://localhost:8000/api/todos/" + id);
+    await axios.delete('http://localhost:8000/api/todos/' + id);
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   // Adds Todo to database, then add the Todo to the current state.
   const addTodo = async (title, desc, completed) => {
     console.log(completed);
-    const response = await axios.post("http://localhost:8000/api/todos", {
+    const response = await axios.post('http://localhost:8000/api/todos', {
       title: title,
       description: desc,
       completed: completed,
@@ -45,38 +45,32 @@ function Todos() {
 
   //FIXME: Filter not working?
   const editTodo = async (id, title, description) => {
-    const response = await axios.put("http://localhost:8000/api/todos", {
+    const response = await axios.put('http://localhost:8000/api/todos', {
       id: id,
       title: title,
       description: description,
     });
-    setTodos(todos.filter((todo) => todo.id !== id));
-    setTodos([response.data, ...todos]);
+    setTodos([response.data, ...todos.filter((todo) => todo.id !== id)]);
   };
 
   // Toggles the boolean 'completed' in the database.
   const toggleCompletedDB = async (id) => {
-    await axios.put("http://localhost:8000/api/todos/" + id);
+    await axios.put('http://localhost:8000/api/todos/' + id);
   };
 
   const uploadPhoto = async (id, formData) => {
     console.log(formData);
-    console.log("UPLOADING PHOTO");
+    console.log('UPLOADING PHOTO');
     const response = await axios.post(
-      "http://localhost:8000/api/todos/" + id,
-      {
-        formData,
-      },
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-      }
+      'http://localhost:8000/api/todos/' + id,
+      formData
     );
   };
 
   // Renders the header and every Todo in the current state/database, if there are no todos
   // we give a visual representation to the user that indicates that there are no todos.
   return (
-    <div className="container">
+    <div className='container'>
       <Header addTodo={addTodo} />
       {todos.length > 0
         ? todos.map((todo) => (
@@ -96,6 +90,6 @@ function Todos() {
 
 export default Todos;
 
-if (document.getElementById("todos")) {
-  ReactDOM.render(<Todos />, document.getElementById("todos"));
+if (document.getElementById('todos')) {
+  ReactDOM.render(<Todos />, document.getElementById('todos'));
 }

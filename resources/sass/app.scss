@@ -1,11 +1,11 @@
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Nunito");
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import "variables";
+@import 'variables';
 
 // Bootstrap
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
 
 * {
   box-sizing: border-box;
@@ -13,7 +13,7 @@
   padding: 0;
 }
 body {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 .container {
@@ -62,4 +62,8 @@ body {
 
 .todo p {
   font-size: 1.1rem;
+}
+
+.image {
+  width: 50px;
 }

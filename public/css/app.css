@@ -10066,3 +10066,7 @@ body {
 .todo p {
   font-size: 1.1rem;
 }
+
+.image {
+  width: 50px;
+}

@@ -89,20 +89,17 @@ class TodoController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'image' => 'Required|mimes:jpeg,jpg,png,gif'
+                'image' => 'Required'
             ]
         );
         if ($validator->fails()) {
             return response($validator->getMessageBag(), 400);
         }
 
-        if ($request->hasFile('image')) {
-            $extension = $request->file('image')->getClientOriginalExtension();
 
-            $name = $id . '.' . $extension;
-            error_log($name);
-            Storage::disk('public')->put($name, $request->file('image'));
-            return response(201);
-        }
+        $extension = '.' . $request->file('image')->getClientOriginalExtension();
+        Storage::disk('public')->put($id . $extension, file_get_contents($request->file('image')));
+
+        return response(201);
     }
 }
