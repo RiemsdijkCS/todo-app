@@ -44,9 +44,7 @@ body {
 }
 
 .todo {
-  background: #f4f4f4;
   margin: 0.5rem;
-  padding: 0.8rem 1.2rem;
   cursor: pointer;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
@@ -65,5 +63,16 @@ body {
 }
 
 .image {
-  width: 50px;
+  width: 50%;
+  margin-right: auto;
+}
+
+.uploadButton {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }

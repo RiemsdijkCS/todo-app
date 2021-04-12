@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 
 {
-  /* The Header component consists of a navbar and "Add Todo" button.  The "Add Todo" button will open a model which
+  /* The Header component consists of a navbar and "Add Todo" button.  The "Add Todo" button will open a modal which
 keeps a form to add information of the Todo to be made.
 The function addTodo is passed as prop, to call it and move upwards.
-As state we keep the checked value, which keeps track if we want to already complete the
-task if we create it. 
+As state we keep track of the title, description and checked value.
 */
 }
 function Header({ addTodo }) {
+  // Hooks to keep track of to update todo
   const [checked, setChecked] = useState(false);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   // Renders the navbar and the button with modal/form included.
   return (
@@ -21,7 +23,7 @@ function Header({ addTodo }) {
       <div id='navbarSupportedContent '>
         <button
           type='button'
-          className='btn btn-primary'
+          className='btn btn-primary ml-auto'
           data-toggle='modal'
           data-target='#addModal'
         >
@@ -58,8 +60,12 @@ function Header({ addTodo }) {
                       type='input'
                       className='form-control'
                       id='inputTitle'
+                      name='title'
                       aria-describedby='emailHelp'
                       placeholder='e.g. do the laundry'
+                      onChange={(e) => {
+                        setTitle(e.target.value);
+                      }}
                     ></input>
                   </div>
                   <div className='form-group'>
@@ -67,8 +73,12 @@ function Header({ addTodo }) {
                     <input
                       type='textarea'
                       className='form-control'
+                      name='description'
                       id='inputDescription'
                       placeholder='e.g. this monday'
+                      onChange={(e) => {
+                        setDescription(e.target.value);
+                      }}
                     ></input>
                   </div>
                   <div className='form-check'>
@@ -92,11 +102,7 @@ function Header({ addTodo }) {
                     data-toggle='modal'
                     data-target='#addModal'
                     onClick={() => {
-                      const title = document.getElementById('inputTitle').value;
-                      const desc = document.getElementById('inputDescription')
-                        .value;
-
-                      addTodo(title, desc, checked);
+                      addTodo(title, description, checked);
                     }}
                   >
                     Add Todo

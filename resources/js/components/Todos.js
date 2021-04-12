@@ -34,7 +34,6 @@ function Todos() {
 
   // Adds Todo to database, then add the Todo to the current state.
   const addTodo = async (title, desc, completed) => {
-    console.log(completed);
     const response = await axios.post('http://localhost:8000/api/todos', {
       title: title,
       description: desc,
@@ -43,14 +42,14 @@ function Todos() {
     setTodos([...todos, response.data]);
   };
 
-  //FIXME: Filter not working?
+  // Edits the todo, makes a put request and returns the updated todo in the body.
   const editTodo = async (id, title, description) => {
     const response = await axios.put('http://localhost:8000/api/todos', {
       id: id,
       title: title,
       description: description,
     });
-    setTodos([response.data, ...todos.filter((todo) => todo.id !== id)]);
+    setTodos(todos.map((todo) => (todo.id === id ? response.data : todo)));
   };
 
   // Toggles the boolean 'completed' in the database.
@@ -58,13 +57,11 @@ function Todos() {
     await axios.put('http://localhost:8000/api/todos/' + id);
   };
 
+  // Posts photo to server side
   const uploadPhoto = async (id, formData) => {
     console.log(formData);
-    console.log('UPLOADING PHOTO');
-    const response = await axios.post(
-      'http://localhost:8000/api/todos/' + id,
-      formData
-    );
+    console.log(formData.get('image'));
+    await axios.post('http://localhost:8000/api/todos/' + id, formData);
   };
 
   // Renders the header and every Todo in the current state/database, if there are no todos
