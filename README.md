@@ -27,6 +27,7 @@ After that we can start up the front & back-end. To do this run:
 
 ```
 php artisan migrate
+php artisan storage:link 
 npm install
 php artisan serve
 npm run watch

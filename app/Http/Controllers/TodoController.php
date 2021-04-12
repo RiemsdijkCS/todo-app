@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class TodoController extends Controller
 {
+    // Returns all todos in the database
     public function show()
     {
         return Todo::all();
@@ -18,14 +19,16 @@ class TodoController extends Controller
         return response(200);
     }
 
+    // Removes certain todo with id from database.
     public function remove(Request $request, $id)
     {
-        $todo = Todo::find($id);
+        $todo = Todo::query()->findOrFail($id);
         $todo->delete();
 
         return response()->json(204);
     }
 
+    // Adds a todo to the database
     public function add(Request $request)
     {
         $validator = Validator::make(
@@ -50,9 +53,10 @@ class TodoController extends Controller
         return response()->json($todo, 201);
     }
 
+    // Toggles the completed boolean of an todo
     public function toggle(Request $request, $id)
     {
-        $todo = Todo::find($id);
+        $todo = Todo::query()->findOrFail($id);
         $todo->update([
             'completed' => !$todo->completed
         ]);
@@ -60,6 +64,7 @@ class TodoController extends Controller
         return response(200);
     }
 
+    // Updates a todo on the database and returns the updated todo in the body
     public function update(Request $request)
     {
         $validator = Validator::make(
@@ -84,6 +89,8 @@ class TodoController extends Controller
         return response()->json($todo, 200);
     }
 
+
+    // Saves an image on the server. 
     public function saveImage(Request $request, $id)
     {
         $validator = Validator::make(
