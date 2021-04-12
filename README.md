@@ -4,7 +4,7 @@ This is a simple Todo-App made for Beeproger. The technology stack of the app is
 
 - ReactJS (Front-End)
 - Laravel (Back-End)
-- SCSS +  React Bootstrap
+- SCSS +  Bootstrap + Material UI
 - SQLite (Database)
 
 ## Installation
