@@ -13,7 +13,7 @@ function Todos() {
   const [todos, setTodos] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
-  // When the component is used, immediately get all todos.
+  // When the component loads, immediately get all todos.
   useEffect(() => {
     loadTodos();
   }, []);
@@ -59,8 +59,6 @@ function Todos() {
 
   // Posts photo to server side
   const uploadPhoto = async (id, formData) => {
-    console.log(formData);
-    console.log(formData.get('image'));
     await axios.post('http://localhost:8000/api/todos/' + id, formData);
   };
 
