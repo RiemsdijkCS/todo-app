@@ -11,6 +11,7 @@ This is a simple Todo-App made for Beeproger. The technology stack of the app is
 To start the app (with a SQLite DB) we first need to make an `.env` file and a database. To do this use:
 ```
 cp .env.example .env
+composer install
 php artisan key:generate
 ```
 Afterwards touch `database.sqlite` in the database repository.
@@ -25,6 +26,8 @@ Change `DB_CONNECTION=` -> `DB_CONNECTION=sqlite` and `DB_DATABASE=`  -> `DB_DAT
 After that we can start up the front & back-end. To do this run:
 
 ```
+php artisan migrate
+npm install
 php artisan serve
 npm run watch
 ```
