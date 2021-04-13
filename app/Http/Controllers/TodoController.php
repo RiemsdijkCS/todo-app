@@ -14,9 +14,9 @@ class TodoController extends Controller
     // Returns all todos in the database
     public function show()
     {
-        return Todo::all();
+        $todos = Todo::all();
 
-        return response(200);
+        return response($todos, 200);
     }
 
     // Removes certain todo with id from database.
@@ -45,11 +45,7 @@ class TodoController extends Controller
         }
 
 
-        $todo = Todo::create([
-            'title' => $request['title'],
-            'description' => $request['description'],
-            'completed' => $request['completed']
-        ]);
+        $todo = Todo::create($request->all());
         return response()->json($todo, 201);
     }
 
